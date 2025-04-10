@@ -6,6 +6,7 @@ model User {
     displayName  String
     email        String    @unique
     passwordHash String
+    role         UserRole  @default(USER)
     Session      Session[]
 
     createdAt DateTime @default(now())
