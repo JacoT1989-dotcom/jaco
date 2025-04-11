@@ -35,6 +35,9 @@ export default function SessionProvider({
     session: LuciaSession | null;
   };
 }) {
+  // console.log("Session data:", value.session);
+  // console.log("User data:", value.user);
+
   const sessionValue: SessionContextValue = {
     user: value.user,
     session: value.session
