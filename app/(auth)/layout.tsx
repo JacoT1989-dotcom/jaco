@@ -1,6 +1,7 @@
 import { validateRequest } from "@/auth";
 import { redirect } from "next/navigation";
 import { Toaster } from "sonner";
+import Navbar from "../_components/Navbar";
 
 // Enum matching your Prisma schema
 enum UserRole {
@@ -12,7 +13,7 @@ enum UserRole {
 // Define role-based routing
 const roleRoutes: Record<UserRole, string> = {
   [UserRole.USER]: "/register-success",
-  [UserRole.CUSTOMER]: "/customer",
+  [UserRole.CUSTOMER]: "/",
   [UserRole.ADMIN]: "/admin",
 };
 
@@ -36,14 +37,16 @@ export default async function RoleBasedLayout({
       redirect(roleRoutes[userRole]);
     } else {
       console.warn(`Unrecognized user role: ${user.role}`);
-      redirect("/");
+      redirect("/login");
     }
   }
 
   return (
-    <>
+    <div className="min-h-screen flex flex-col">
+      <Navbar />
+      <main className="flex-1">{children}</main>
+      {/* <Footer /> */}
       <Toaster />
-      {children}
-    </>
+    </div>
   );
 }

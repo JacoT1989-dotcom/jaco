@@ -8,7 +8,7 @@ import { Prisma, UserRole } from "@prisma/client";
 import { RegisterFormValues, registerSchema } from "./validation";
 
 export async function signUp(
-  formData: RegisterFormValues
+  formData: RegisterFormValues,
 ): Promise<{ error?: string } | never> {
   try {
     const validatedData = registerSchema.parse(formData);
