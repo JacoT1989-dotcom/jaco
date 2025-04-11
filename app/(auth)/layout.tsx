@@ -14,7 +14,7 @@ enum UserRole {
 const roleRoutes: Record<UserRole, string> = {
   [UserRole.USER]: "/register-success",
   [UserRole.CUSTOMER]: "/",
-  [UserRole.ADMIN]: "/admin",
+  [UserRole.ADMIN]: "/",
 };
 
 function toUserRole(role: string): UserRole | undefined {
