@@ -2,6 +2,7 @@ import { validateRequest } from "@/auth";
 import { redirect } from "next/navigation";
 import { Toaster } from "sonner";
 import Navbar from "../_components/Navbar";
+import SessionProvider from "../SessionProvider";
 
 // Enum matching your Prisma schema
 enum UserRole {
@@ -28,7 +29,7 @@ export default async function RoleBasedLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const { user } = await validateRequest();
+  const { user, session } = await validateRequest();
 
   if (user) {
     const userRole = toUserRole(user.role);
@@ -42,11 +43,13 @@ export default async function RoleBasedLayout({
   }
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <Navbar />
-      <main className="flex-1">{children}</main>
-      {/* <Footer /> */}
-      <Toaster />
-    </div>
+    <SessionProvider value={{ user, session }}>
+      <div className="min-h-screen flex flex-col">
+        <Navbar />
+        <main className="flex-1">{children}</main>
+        {/* <Footer /> */}
+        <Toaster />
+      </div>
+    </SessionProvider>
   );
 }
